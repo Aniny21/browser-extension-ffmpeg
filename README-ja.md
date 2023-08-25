@@ -41,7 +41,7 @@ Chrome拡張機能のManifest Version3 に対応しています。
 
 
 ## ライセンス
-MIT
+MIT（サンプル動画および音声を除く）
 
 ## 参考
 - ffmpeg.wasm-core: [https://github.com/ffmpegwasm/ffmpeg.wasm-core](https://github.com/ffmpegwasm/ffmpeg.wasm-core)
