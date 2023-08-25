@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options</title>
+    <link rel="stylesheet" href="../css/options.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>ffmpeg.wasm demo</h1>
+
+        <h2>Sample Video and Audio</h2>
+
+        <div class="flex-container">
+            <h3 class="flex-item">sample_video.webm</h2>
+                <h3 class="flex-item">sample_audio.wav</h2>
+        </div>
+        <div class="flex-container">
+            <div class="flex-item">
+                <div id="video-container"></div>
+                <a id="video-url-link" href="" target="_blank">Sample Video URL</a>
+            </div>
+            <div class="flex-item">
+                <div id="audio-container"></div>
+                <a id="audio-url-link" href="" target="_blank">Sample Audio URL</a>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="flex-container">
+            <div class="flex-item">
+                <button id="convert-video">Convert WebM to MP4</button>
+            </div>
+            <div class="flex-item">
+                <button id="convert-audio">Convert Wav to MP3</button>
+            </div>
+        </div>
+
+        <div class="spacer5"></div>
+
+        <h2>Custom Video and Audio</h2>
+
+        <div>
+            <input type="file" id="file-input" accept="video/*,audio/*" />
+            <div class="spacer"></div>
+
+            <div>
+                1. the input file name must be the same as the selected file name<br>
+                2. the output file name must be listed at the end of the command<br>
+                3. some commands freeze the browser for a long time, so open the console before executing them
+            </div>
+            <input id="command-input" type="text" placeholder="ffmpeg -i input.avi output.mp4" />
+            <div class="spacer"></div>
+            <button id="run">Run</button>
+        </div>
+
+        <pre id="info"></pre>
+
+        
+        <div class="spacer5"></div>
+        <div class="spacer5"></div>
+        <div class="spacer5"></div>
+        <div class="spacer5"></div>
+
+    </div>
+
+    <script src="../lib/ffmpeg.min.js"></script>
+    <script src="../lib/ffmpeg-core.js"></script>
+    <script src="../js/options.js"></script>
+</body>

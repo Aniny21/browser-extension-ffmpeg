@@ -1,0 +1,45 @@
+{
+    "manifest_version": 2,
+    "name": "ffmpeg.wasm demo",
+    "version": "1.0.1",
+    "description": "ffmpeg.wasm demo",
+    "icons": {
+        "32": "icons/32.png",
+        "48": "icons/48.png",
+        "96": "icons/96.png"
+    },
+    "permissions": [
+        "<all_urls>"
+    ],
+    "browser_action": {
+        "default_icon": "icons/48.png",
+        "default_title": "Addon-Template",
+        "default_popup": "html/popup.html"
+    },
+    "background": {
+        "scripts": [
+            "js/background.js"
+        ]
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "lib/ffmpeg.min.js",
+                "lib/ffmpeg-core.js",
+                "js/content.js"
+            ]
+        }
+    ],
+    "options_ui": {
+        "page": "html/options.html"
+    },
+    "web_accessible_resources": [
+        "data/*",
+        "html/*",
+        "lib/*"
+    ],
+    "content_security_policy": "script-src 'self' 'wasm-eval'; object-src 'self';"
+}
