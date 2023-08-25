@@ -2,7 +2,7 @@
 English | [日本語](./README-ja.md)  
 
 ## Overview
-A simple example using ffmpeg.wasm in Chrome and Firefox.  
+A simple example of using ffmpeg.wasm with Chrome and Firefox extensions.  
 Chrome Extension Manifest V3 is supported.
 
 ## Installation
