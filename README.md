@@ -41,7 +41,7 @@ You can also specify any file and command to perform the conversion.
 
 
 ## License
-MIT (except sample video and audio)
+MIT (except for sample video and audio)
 
 ## References
 - ffmpeg.wasm-core: [https://github.com/ffmpegwasm/ffmpeg.wasm-core](https://github.com/ffmpegwasm/ffmpeg.wasm-core)
