@@ -51,7 +51,7 @@
                 2. the output file name must be listed at the end of the command<br>
                 3. some commands freeze the browser for a long time, so open the console before executing them
             </div>
-            <input id="command-input" type="text" placeholder="ffmpeg -i input.avi output.mp4" />
+            <input id="command-input" type="text" placeholder="ffmpeg -i input.avi -c copy output.mp4" />
             <div class="spacer"></div>
             <button id="run">Run</button>
         </div>
@@ -66,7 +66,7 @@
 
     </div>
 
-    <script src="../lib/ffmpeg.min.js"></script>
-    <script src="../lib/ffmpeg-core.js"></script>
+    <script src="../lib/ffmpeg/umd/ffmpeg.js"></script>
+    <script src="../lib/ffmpeg/util.js"></script>
     <script src="../js/options.js"></script>
 </body>

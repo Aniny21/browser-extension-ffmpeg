@@ -1,29 +1,58 @@
-const { createFFmpeg, fetchFile } = FFmpeg;
+const { FFmpeg } = FFmpegWASM;
+const { fetchFile } = FFmpegUtil;
 
-const ffmpeg = createFFmpeg({
-    corePath: chrome.runtime.getURL("lib/ffmpeg-core.js"),
-    log: true,
-    mainName: 'main'
+// initialize ffmpeg
+const ffmpeg = new FFmpeg();
+
+// convert wasm and core url to absolute path
+const coreUrl = chrome.runtime.getURL("lib/ffmpeg/ffmpeg-core.js");
+const wasmUrl = chrome.runtime.getURL("lib/ffmpeg/ffmpeg-core.wasm");
+
+// log ffmpeg messages
+ffmpeg.on("log", ({ message }) => {
+    console.log(message);
 });
 
+// progress bar
+ffmpeg.on("progress", ({ progress, time }) => {
+    console.log((progress * 100) + "%, time: " + (time / 1000000) + " s");
+});
+
+// custom ffmpeg command
 async function runFFmpeg(inputFileName, outputFileName, commandStr, file) {
-    if (ffmpeg.isLoaded()) {
-        await ffmpeg.exit();
+    console.log(inputFileName, outputFileName, commandStr, file);
+
+    // exit ffmpeg if it is already loaded
+    if (ffmpeg.loaded) {
+        await ffmpeg.terminate();
     }
 
-    await ffmpeg.load();
+    // load ffmpeg
+    await ffmpeg.load({
+        coreURL: coreUrl,
+        wasmURL: wasmUrl,
+    });
 
+    // split command string
     const commandList = commandStr.split(' ');
     if (commandList.shift() !== 'ffmpeg') {
         alert('Please start with ffmpeg');
         return;
     }
 
-    ffmpeg.FS('writeFile', inputFileName, await fetchFile(file));
+    // write file to filesystem
+    await ffmpeg.writeFile(inputFileName, await fetchFile(file));
+
+    // execute command
     console.log(commandList);
-    await ffmpeg.run(...commandList);
-    const data = ffmpeg.FS('readFile', outputFileName);
+    await ffmpeg.exec(commandList);
+
+    // read output file
+    const data = await ffmpeg.readFile(outputFileName);
+
+    // create blob and download
     const blob = new Blob([data.buffer]);
+    console.log(blob);
     downloadFile(blob, outputFileName);
 }
 
@@ -34,6 +63,27 @@ function downloadFile(blob, fileName) {
     a.click();
 }
 
+// convert custom file
+const run = document.getElementById('run');
+run.addEventListener('click', async () => {
+    const file = document.getElementById('file-input').files[0];
+    if (!file) {
+        alert('Please select a file');
+        return;
+    }
+    const commandInput = document.getElementById('command-input');
+    const command = commandInput.value;
+    const inputFileName = file.name;
+    const outputFileName = command.split(' ').pop();
+
+    await runFFmpeg(inputFileName, outputFileName, command, file);
+});
+
+
+
+//
+// The following are for converting sample assets, so you probably won't use them.
+//
 
 // convert sample file //
 // convert sample_video.avi to sample_video.mp4
@@ -89,18 +139,3 @@ convertAudio.addEventListener('click', async () => {
 });
 
 
-// convert custom file //
-const run = document.getElementById('run');
-run.addEventListener('click', async () => {
-    const file = document.getElementById('file-input').files[0];
-    if (!file) {
-        alert('Please select a file');
-        return;
-    }
-    const commandInput = document.getElementById('command-input');
-    const command = commandInput.value;
-    const inputFileName = file.name;
-    const outputFileName = command.split(' ').pop();
-
-    await runFFmpeg(inputFileName, outputFileName, command, file);
-});
