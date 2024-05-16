@@ -1,6 +1,8 @@
 # browser-extension-ffmpeg
 English | [日本語](./README-ja.md)  
 
+**ffmpeg.wasm version 0.12.6 is now supported in the dev branch. (Manifest V3 only).**
+
 ## Overview
 A simple example of using ffmpeg.wasm with Chrome and Firefox extensions.  
 Chrome Extension Manifest V3 is supported.

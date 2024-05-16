@@ -1,6 +1,8 @@
 # browser-extension-ffmpeg
 [English](./README.md) | 日本語
 
+**devブランチでは、ffmpeg.wasm version 0.12.6に対応しています (Manifest V3のみ)。**
+
 ## 概要
 ChromeおよびFirefoxでffmpeg.wasmを使用する簡単な例  
 Chrome拡張機能のManifest Version3 に対応しています。
